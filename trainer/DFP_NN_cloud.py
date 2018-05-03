@@ -1,15 +1,12 @@
 import sys
 import gzip
 import time
-import logging
 import warnings
 import argparse
 import itertools
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-import matplotlib
-from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score, mean_squared_error
 from sklearn.preprocessing import MinMaxScaler
@@ -70,7 +67,7 @@ def convert_local_or_gcs_to_df(path):
                 with gzip.GzipFile(fileobj=f, mode='rb') as f_gz:
                     return pd.read_csv(f_gz, encoding='utf-8')
         except Exception as e:  # pylint: disable=broad-except
-            logging.error('Retrying after exception reading gcs file {}'.format(e))
+            print('Retrying after exception reading gcs file {}'.format(e))
             time.sleep(10)
             with file_io.FileIO(path, mode='rb') as f:
                 with gzip.GzipFile(fileobj=f, mode='rb',) as f_gz:

@@ -5,7 +5,7 @@ export REGION=us-central1
 
 gcloud ml-engine jobs submit training $JOB_NAME \
   --job-dir gs://$BUCKET_NAME/ML/$JOB_NAME \
-  --runtime-version 1.0 \
+  --runtime-version 1.7 \
   --module-name trainer.DFP_NN_cloud \
   --package-path /Users/jonas/Code/data/trainer \
   --region $REGION \

@@ -16,6 +16,13 @@ warnings.filterwarnings('ignore')
 PLOT = False
 file_path = '/Users/jonas/Code/data/DFP_NN_01_rand_100K_preprocessed.csv'
 
+sess = tf.Session()
+saver = tf.train.Saver(max_to_keep=4, keep_checkpoint_every_n_hours=2)
+saver.save(sess, 'my_test_model') # global_step=step,write_meta_graph=False)
+#saves a model every 2 hours and maximum 4 latest models are saved.
+saver = tf.train.Saver(max_to_keep=4, keep_checkpoint_every_n_hours=2)
+
+
 
 df = pd.read_csv(file_path)
 #df = df[df['advertiser'] == 'Rubicon']
@@ -152,6 +159,8 @@ regressors = [
 ]
 
 for name, regressor in regressors:
+
+    import pdb; pdb.set_trace()
     regressor.fit(input_fn=lambda: input_fn_new(training_set), steps=2000)
     ev = regressor.evaluate(input_fn=lambda: input_fn_new(testing_set, training=True), steps=1)
     loss_score4 = ev['loss']
